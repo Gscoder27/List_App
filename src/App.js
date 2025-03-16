@@ -10,7 +10,25 @@ import apiRequest from './apiRequest';
 
 function App() {
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3500/items';
+  const API_URL = process.env.REACT_APP_API_URL || 'ws://localhost:3500/ws';
+
+  useEffect(() => {
+    const socket = new WebSocket(API_URL);
+
+    socket.onopen = () => {
+      console.log('WebSocket connection established.');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    // Clean up on unmount.
+    return () => {
+      socket.close();
+    };
+  }, [API_URL]);
+
   const [items, setItems] = useState(JSON.parse(localStorage.getItem('Shoppinglist')) || []);
   // const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState(''); 
@@ -63,7 +81,7 @@ function App() {
     setTimeout(() => {
     (async () => await fetchItems())();
     }, 2000);
-  }, [])
+  }, [API_URL])
 
   const addItem = async (item) => {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
