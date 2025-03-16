@@ -10,7 +10,7 @@ import apiRequest from './apiRequest';
 
 function App() {
 
-  const API_URL = 'http://localhost:3500/items';
+  const API_URL = 'https://prjt1grocerylistapp.netlify.app/items';
   const [items, setItems] = useState(JSON.parse(localStorage.getItem('Shoppinglist')) || []);
   // const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState(''); 
