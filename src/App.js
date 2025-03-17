@@ -10,24 +10,24 @@ import apiRequest from './apiRequest';
 
 function App() {
 
-  const API_URL = process.env.REACT_APP_API_URL || 'ws://localhost:3500/ws';
+  const API_URL = process.env.REACT_APP_API_URL || 'https://localhost:3500/items';
 
-  useEffect(() => {
-    const socket = new WebSocket(API_URL);
+  // useEffect(() => {
+  //   const socket = new WebSocket(API_URL);
 
-    socket.onopen = () => {
-      console.log('WebSocket connection established.');
-    };
+  //   socket.onopen = () => {
+  //     console.log('WebSocket connection established.');
+  //   };
 
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
+  //   socket.onerror = (error) => {
+  //     console.error('WebSocket error:', error);
+  //   };
 
-    // Clean up on unmount.
-    return () => {
-      socket.close();
-    };
-  }, [API_URL]);
+  //   // Clean up on unmount.
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, [API_URL]);
 
   const [items, setItems] = useState(JSON.parse(localStorage.getItem('Shoppinglist')) || []);
   // const [items, setItems] = useState([]);
